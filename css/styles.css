@@ -1,0 +1,22 @@
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+}
+
+header {
+  background-color: #4c2474;
+}
+
+.code-journal {
+  color: white;
+  flex-basis: 100%;
+}
