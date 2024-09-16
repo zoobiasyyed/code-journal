@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   width: 100%;
   margin: 0;
@@ -7,12 +11,19 @@ header {
   background-color: #4c2474;
 }
 
+.row {
+  margin: 0;
+  width: 100%;
+}
+
 .column {
   flex-basis: 100%;
 }
 
 .column-half {
+  margin: 0;
   flex-basis: 50%;
+  height: 300px;
 }
 
 .code-journal {
@@ -25,7 +36,9 @@ header {
 }
 
 #ph-image {
-  height: 50%;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
 }
 
 input {
