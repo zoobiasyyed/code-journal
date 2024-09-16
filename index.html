@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,9 +17,34 @@
   </head>
   <body>
     <header>
-      <div class="container"></div>
+      <div class="container">
+        <div class="row">
+          <div class="column code-journal">
+            <h1>Code Journal</h1>
+          </div>
+        </div>
+      </div>
     </header>
     <main class="container">
+      <div class="row">
+        <div class="column">
+          <h2>New Entry</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column-half">
+          <img
+            id="ph-image"
+            src="images/placeholder-image-square.jpg"
+            alt="placeholder" />
+        </div>
+        <div class="column-half">
+          <p class="mini-titles">Title</p>
+          <input type="text" id="title-textbox" name="title-textbox" />
+          <p class="mini-titles">Photo URL</p>
+          <input type="text" id="photo-textbox" name="photo-textbox" />
+        </div>
+      </div>
       <div data-view="entry-form"></div>
       <div data-view="entries" class="hidden"></div>
     </main>
