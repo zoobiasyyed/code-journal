@@ -7,17 +7,22 @@ body {
   margin: 0;
 }
 
+.container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  margin: 0;
+}
+
 header {
   background-color: #4c2474;
 }
 
-.row {
-  display: flex;
-  margin: 0;
-  width: 100%;
-}
-
 .column {
+  margin: 0;
   flex-basis: 100%;
 }
 
@@ -34,6 +39,7 @@ header {
 #ph-image {
   height: 400px;
   width: 400px;
+  justify-content: center;
 }
 
 input {
@@ -66,8 +72,29 @@ input {
   border: none;
 }
 
-@media screen and (width <= 576px) {
+@media screen and (width <= 767px) {
   .column-half {
     flex-basis: 100%;
+  }
+
+  .row {
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+  }
+
+  .image-ph {
+    width: 800px;
+    height: 600px;
+  }
+
+  #ph-image {
+    height: 575px;
+    width: 575px;
+  }
+
+  #title-textbox,
+  #photo-textbox {
+    width: 580px;
   }
 }
