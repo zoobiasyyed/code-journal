@@ -14,11 +14,6 @@ interface Data {
 
 const data: Data = readDataModel();
 
-// In data.ts, add functions that serialize the data model
-// as JSON and stores the JSON in localStorage, and that reads
-// the JSON from localStorage returned the parsed value
-// (or a default data model if it does not exist).
-
 function serializeDataModel(): void {
   const serializeData = JSON.stringify(data);
   localStorage.setItem('data-storage', serializeData);
