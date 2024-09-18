@@ -18,7 +18,6 @@ function serializeDataModel(): void {
   const serializeData = JSON.stringify(data);
   localStorage.setItem('data-storage', serializeData);
 }
-console.log(serializeDataModel);
 
 function readDataModel(): Data {
   const readData = localStorage.getItem('data-storage');

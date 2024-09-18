@@ -12,7 +12,6 @@ if (!$form) throw new Error('The $form query failed');
 $form.addEventListener('submit', (event) => {
   event.preventDefault();
   const $formElements = $form.elements;
-  console.log($formElements['photo-textbox'].value);
   const formData = {
     entryID: data.nextEntryId,
     imageUrl: $formElements['photo-textbox'].value,

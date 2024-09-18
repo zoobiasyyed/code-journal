@@ -24,8 +24,6 @@ $form.addEventListener('submit', (event: Event) => {
   event.preventDefault();
   const $formElements = $form.elements as FormElements;
 
-  console.log($formElements['photo-textbox'].value);
-
   const formData = {
     entryID: data.nextEntryId,
     imageUrl: $formElements['photo-textbox'].value,
