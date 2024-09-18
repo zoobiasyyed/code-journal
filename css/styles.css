@@ -58,3 +58,30 @@ input {
   background-color: #4c2474;
   border: none;
 }
+
+.new-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#new-button {
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  color: white;
+  background-color: #4c2474;
+  border: none;
+}
+
+#pikachu-image {
+  width: 200px;
+}
+
+#mew-image {
+  width: 200px;
+}
+
+#jirachi-image {
+  width: 200px;
+}

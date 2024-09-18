@@ -26,7 +26,7 @@
       </div>
     </header>
     <main class="container style">
-      <div data-view="entry-form">
+      <div data-view="entry-form" class="hidden">
         <div class="row">
           <div class="column-full">
             <h2>New Entry</h2>
@@ -72,7 +72,42 @@
           </div>
         </div>
       </div>
-      <div data-view="entries" class="hidden"></div>
+      <div data-view="entries">
+        <div class="row">
+          <div class="column-half new-entries">
+            <h2>Entries</h2>
+          </div>
+          <div class="column-half new-button">
+            <button type="submit" id="new-button">NEW</button>
+          </div>
+          <ul id="journal-entries">
+            <li class="journal-entry">
+              <h3>First Entry</h3>
+              <p>This is my first entry!</p>
+              <img
+                id="pikachu-image"
+                src="https://preview.redd.it/edited-a-couple-of-images-of-pikachu-from-the-anime-to-give-v0-6nvufn43954d1.png?width=1080&crop=smart&auto=webp&s=2428c61477f952506a3a52e74af527cd822e4bf0"
+                alt="cute pikachu" />
+            </li>
+            <li class="journal-entry">
+              <h3>Second Entry</h3>
+              <p>This is my second entry!</p>
+              <img
+                id="mew-image"
+                src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/11/Why-I%E2%80%99m-Waiting-To-Catch-Mew-In-Pokemon-Go.jpg"
+                alt="cute mew" />
+            </li>
+            <li class="journal-entry">
+              <h3>Third Entry</h3>
+              <p>This is my third entry!</p>
+              <img
+                id="jirachi-image"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6Ehzuu9imAigdKeTcAQ9rOZOn0ZhlTb0Lqw&s"
+                alt="cute jirachi" />
+            </li>
+          </ul>
+        </div>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
