@@ -1,0 +1,60 @@
+body {
+  background-color: #eee;
+}
+
+h1 {
+  color: white;
+}
+
+header {
+  background-color: #4c2474;
+}
+
+#title-textbox {
+  width: 100%;
+}
+
+#photo-textbox {
+  width: 100%;
+}
+
+#ph-image {
+  height: 400px;
+  width: 400px;
+}
+
+.image-ph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  width: 400px;
+  height: 35px;
+  border-radius: 5px;
+  border: solid;
+  border-color: #b5b5b6;
+  border-width: 1px;
+  margin-bottom: 10px;
+}
+
+#notes-textbox {
+  height: 200px;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 30px;
+}
+
+#submit-button {
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  color: white;
+  background-color: #4c2474;
+  border: none;
+}

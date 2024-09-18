@@ -1,25 +1,10 @@
-interface Entry {
-  entryID: number;
-  imageUrl: string;
-  title: string;
-  notes: string;
-}
-
-interface Data {
-  view: 'entries' | 'entry-form';
-  entries: Entry[];
-  editing: null | Entry;
-  nextEntryId: number;
-}
-
-const data: Data = readDataModel();
-
-function serializeDataModel(): void {
+'use strict';
+const data = readDataModel();
+function serializeDataModel() {
   const serializeData = JSON.stringify(data);
   localStorage.setItem('data-storage', serializeData);
 }
-
-function readDataModel(): Data {
+function readDataModel() {
   const readData = localStorage.getItem('data-storage');
   if (readData) {
     const parseData = JSON.parse(readData);
