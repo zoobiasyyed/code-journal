@@ -21,7 +21,7 @@
         <div class="row">
           <div class="column-full entries-style">
             <h1>Code Journal</h1>
-            <a href="#entries" id="entries-link">Entries</a>
+            <a class="links" href="#entries" id="entries-link">Entries</a>
           </div>
         </div>
       </div>
@@ -39,6 +39,7 @@
           <div class="row list-styling">
             <div class="column-half image-ph">
               <img
+                class="image"
                 id="ph-image"
                 src="images/placeholder-image-square.jpg"
                 alt="placeholder" />
@@ -77,52 +78,17 @@
       </div>
 
       <div data-view="entries">
-        <div class="row header-new-entries">
+        <div class="row">
           <div class="column-full new-entries">
             <h2>Entries</h2>
-            <a href="#entry-form" class="new-button" id="entries-button">NEW</a>
+            <a href="#entry-form" class="new-button links" id="entries-button"
+              >NEW</a
+            >
           </div>
         </div>
-        <div class="row">
+        <div class="row header-new-entries">
           <p id="toggle-p">There is no entry!</p>
-          <ul id="journal-entries">
-            <li class="row journal-entry">
-              <div class="column-half">
-                <img
-                  id="pikachu-image"
-                  src="https://preview.redd.it/edited-a-couple-of-images-of-pikachu-from-the-anime-to-give-v0-6nvufn43954d1.png?width=1080&crop=smart&auto=webp&s=2428c61477f952506a3a52e74af527cd822e4bf0"
-                  alt="cute pikachu" />
-              </div>
-              <div class="column-half">
-                <h3>First Entry</h3>
-                <p>This is my first entry!</p>
-              </div>
-            </li>
-            <li class="row journal-entry">
-              <div class="column-half">
-                <img
-                  id="mew-image"
-                  src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/11/Why-I%E2%80%99m-Waiting-To-Catch-Mew-In-Pokemon-Go.jpg"
-                  alt="cute mew" />
-              </div>
-              <div class="column-half">
-                <h3>Second Entry</h3>
-                <p>This is my second entry!</p>
-              </div>
-            </li>
-            <li class="row journal-entry">
-              <div class="column-half">
-                <img
-                  id="jirachi-image"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6Ehzuu9imAigdKeTcAQ9rOZOn0ZhlTb0Lqw&s"
-                  alt="cute jirachi" />
-              </div>
-              <div class="column-half">
-                <h3>Third Entry</h3>
-                <p>This is my third entry!</p>
-              </div>
-            </li>
-          </ul>
+          <ul id="journal-entries"></ul>
         </div>
       </div>
     </main>

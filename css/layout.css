@@ -12,7 +12,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-right: 20px;
+}
+
+.header-new-entries {
+  padding-right: 40px;
 }
 
 .column-full,

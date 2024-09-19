@@ -18,9 +18,8 @@ header {
   width: 100%;
 }
 
-#ph-image {
-  height: 400px;
-  width: 400px;
+.image {
+  width: 100%;
 }
 
 .image-ph {
@@ -59,26 +58,7 @@ input {
   border: none;
 }
 
-#pikachu-image {
-  width: 100%;
-}
-
-#mew-image {
-  width: 100%;
-}
-
-#jirachi-image {
-  width: 100%;
-}
-
-#entries-link {
-  color: white;
-  padding-left: 10px;
-  font-size: 20px;
-  text-decoration: none;
-}
-
-#entries {
+.links {
   color: white;
   padding-left: 10px;
   font-size: 20px;

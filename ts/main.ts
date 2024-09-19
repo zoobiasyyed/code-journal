@@ -48,30 +48,30 @@ $form.addEventListener('submit', (event: Event) => {
   serializeDataModel();
 });
 
-const $li = document.createElement('li');
-const $divForImage = document.createElement('div');
-const $img1 = document.createElement('img');
-const $divForContent = document.createElement('div');
-const $h3 = document.createElement('h3');
-const $p = document.createElement('p');
 // view entries
 
 function renderEntry(entry: Entry): HTMLLIElement {
+  const $li = document.createElement('li');
   $li.setAttribute('class', 'row journal-entry');
 
+  const $divForImage = document.createElement('div');
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
 
+  const $img1 = document.createElement('img');
   $img1.setAttribute('src', `${entry.imageUrl}`);
   $img1.setAttribute('alt', `${entry.title}`);
   $divForImage.appendChild($img1);
 
+  const $divForContent = document.createElement('div');
   $divForContent.setAttribute('class', 'column-half');
   $li.appendChild($divForContent);
 
+  const $h3 = document.createElement('h3');
   $h3.textContent = entry.title;
   $divForContent.appendChild($h3);
 
+  const $p = document.createElement('p');
   $p.textContent = entry.notes;
   $divForContent.appendChild($p);
 
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $journalEntries?.appendChild($entry);
   }
   toggleNoEntries();
-  viewSwap('entry-form');
+  viewSwap(data.view);
 });
 
 function toggleNoEntries(): void {
@@ -111,19 +111,3 @@ function viewSwap(viewToShow: string): void {
     $viewEntries?.classList.add('hidden');
   }
 }
-
-const $viewEntriesLink = document.querySelector('#entries-link');
-
-$viewEntriesLink?.addEventListener('click', (event: Event) => {
-  event.preventDefault();
-
-  viewSwap('entries');
-});
-
-const $viewNewEntries = document.querySelector('#entries-button');
-
-$viewNewEntries?.addEventListener('click', (event: Event) => {
-  event.preventDefault();
-
-  viewSwap('entry-form');
-});
