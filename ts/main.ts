@@ -35,6 +35,12 @@ $form.addEventListener('submit', (event: Event) => {
 
   data.entries.unshift(formData);
 
+  const newElements = renderEntry(formData);
+  $journalEntries?.prepend(newElements);
+
+  viewSwap('entries');
+  toggleNoEntries();
+
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $form.reset();
@@ -72,8 +78,6 @@ function renderEntry(entry: Entry): HTMLLIElement {
   return $li;
 }
 
-console.log(renderEntry);
-
 const $journalEntries = document.querySelector('#journal-entries');
 const $tp = document.querySelector('#toggle-p');
 
@@ -82,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const $entry = renderEntry(data.entries[i]);
 
     $journalEntries?.appendChild($entry);
-
-    toggleNoEntries();
   }
+  toggleNoEntries();
+  viewSwap('entry-form');
 });
 
 function toggleNoEntries(): void {
@@ -114,4 +118,12 @@ $viewEntriesLink?.addEventListener('click', (event: Event) => {
   event.preventDefault();
 
   viewSwap('entries');
+});
+
+const $viewNewEntries = document.querySelector('#entries-button');
+
+$viewNewEntries?.addEventListener('click', (event: Event) => {
+  event.preventDefault();
+
+  viewSwap('entry-form');
 });
