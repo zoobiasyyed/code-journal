@@ -32,6 +32,7 @@ $form.addEventListener('submit', (event) => {
 function renderEntry(entry) {
   const $li = document.createElement('li');
   $li.setAttribute('class', 'row journal-entry');
+  $li.setAttribute('data-entry-id', entry.entryID.toString());
   const $divForImage = document.createElement('div');
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
@@ -88,4 +89,21 @@ $viewEntriesLink?.addEventListener('click', () => {
 const $viewNewEntries = document.querySelector('#entries-button');
 $viewNewEntries?.addEventListener('click', () => {
   viewSwap('entry-form');
+});
+const $clickPencil = document.querySelector('.fa-solid .fa-pencil');
+const $ul = document.querySelector('ul');
+$ul?.addEventListener('click', (event) => {
+  viewSwap('entries');
+  const eventTarget = event.target;
+  console.log('eventTarget: ', eventTarget.tagName);
+  const $closestli = eventTarget.closest('li');
+  console.log($closestli);
+  for (let i = 0; i < data.entries.length; i++) {
+    if (
+      data.entries[i].entryID.toString() ===
+      $closestli?.getAttribute('data-entry-id')
+    ) {
+      data.editing = data.entries[i];
+    }
+  }
 });
