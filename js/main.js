@@ -24,3 +24,35 @@ $form.addEventListener('submit', (event) => {
   $form.reset();
   serializeDataModel();
 });
+// view entries
+function renderEntry(entry) {
+  const $li = document.createElement('li');
+  $li.setAttribute('class', 'row journal-entry');
+  const $divForImage = document.createElement('div');
+  $divForImage.setAttribute('class', 'column-half');
+  $li.appendChild($divForImage);
+  const $img = document.createElement('img');
+  $img.setAttribute('src', `${entry.imageUrl}`);
+  $img.setAttribute('alt', `${entry.title}`);
+  $divForImage.appendChild($img);
+  const $divForContent = document.createElement('div');
+  $divForContent.setAttribute('class', 'column-half');
+  $li.appendChild($divForContent);
+  const $h3 = document.createElement('h3');
+  $h3.textContent = entry.title;
+  $divForContent.appendChild($h3);
+  const $p = document.createElement('p');
+  $p.textContent = entry.notes;
+  $divForContent.appendChild($p);
+  return $li;
+}
+console.log(renderEntry);
+const $journalEntries = document.querySelector('#journal-entries');
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const $entry = renderEntry(data.entries[i]);
+    // $journalEntries?.appendChild($entry);
+    // if (data.entries.length === 0){
+    // }
+  }
+});

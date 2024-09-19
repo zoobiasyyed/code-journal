@@ -26,7 +26,7 @@
       </div>
     </header>
     <main class="container style">
-      <div data-view="entry-form" class="hidden">
+      <div data-view="entry-form">
         <div class="row">
           <div class="column-full">
             <h2>New Entry</h2>
@@ -34,46 +34,49 @@
         </div>
 
         <!-- Added form element here -->
-        <div class="row">
-          <div class="column-half image-ph">
-            <img
-              id="ph-image"
-              src="images/placeholder-image-square.jpg"
-              alt="placeholder" />
+        <form>
+          <div class="row">
+            <div class="column-half image-ph">
+              <img
+                id="ph-image"
+                src="images/placeholder-image-square.jpg"
+                alt="placeholder" />
+            </div>
+            <div class="column-half text-boxes">
+              <p class="mini-titles">Title</p>
+              <input
+                type="text"
+                id="title-textbox"
+                name="title-textbox"
+                required />
+              <p class="mini-titles">Photo URL</p>
+              <input
+                type="text"
+                id="photo-textbox"
+                name="photo-textbox"
+                required />
+            </div>
           </div>
-          <div class="column-half text-boxes">
-            <p class="mini-titles">Title</p>
-            <input
-              type="text"
-              id="title-textbox"
-              name="title-textbox"
-              required />
-            <p class="mini-titles">Photo URL</p>
-            <input
-              type="text"
-              id="photo-textbox"
-              name="photo-textbox"
-              required />
+          <div class="row">
+            <div class="column-full">
+              <p>Notes</p>
+              <input
+                type="text"
+                id="notes-textbox"
+                name="notes-textbox"
+                required />
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="column-full">
-            <p>Notes</p>
-            <input
-              type="text"
-              id="notes-textbox"
-              name="notes-textbox"
-              required />
+          <div class="row">
+            <div class="column-full button">
+              <button type="submit" id="submit-button">SAVE</button>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="column-full button">
-            <button type="submit" id="submit-button">SAVE</button>
-          </div>
-        </div>
+        </form>
       </div>
+
       <div data-view="entries">
-        <div class="row">
+        <div class="row header-new-entries">
           <div class="column-half new-entries">
             <h2>Entries</h2>
           </div>

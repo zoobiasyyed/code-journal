@@ -18,6 +18,10 @@
   width: 100%;
 }
 
+#journal-entries {
+  padding-right: 40px;
+}
+
 @media screen and (width >= 768px) {
   .container {
     max-width: 900px;
