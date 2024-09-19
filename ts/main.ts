@@ -111,3 +111,12 @@ function viewSwap(viewToShow: string): void {
     $viewEntries?.classList.add('hidden');
   }
 }
+
+const $viewEntriesLink = document.querySelector('#entries-link');
+$viewEntriesLink?.addEventListener('click', () => {
+  viewSwap('entries');
+});
+const $viewNewEntries = document.querySelector('#entries-button');
+$viewNewEntries?.addEventListener('click', () => {
+  viewSwap('entry-form');
+});

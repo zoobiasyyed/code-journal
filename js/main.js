@@ -28,24 +28,24 @@ $form.addEventListener('submit', (event) => {
   $form.reset();
   serializeDataModel();
 });
-const $li = document.createElement('li');
-const $divForImage = document.createElement('div');
-const $img1 = document.createElement('img');
-const $divForContent = document.createElement('div');
-const $h3 = document.createElement('h3');
-const $p = document.createElement('p');
 // view entries
 function renderEntry(entry) {
+  const $li = document.createElement('li');
   $li.setAttribute('class', 'row journal-entry');
+  const $divForImage = document.createElement('div');
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
+  const $img1 = document.createElement('img');
   $img1.setAttribute('src', `${entry.imageUrl}`);
   $img1.setAttribute('alt', `${entry.title}`);
   $divForImage.appendChild($img1);
+  const $divForContent = document.createElement('div');
   $divForContent.setAttribute('class', 'column-half');
   $li.appendChild($divForContent);
+  const $h3 = document.createElement('h3');
   $h3.textContent = entry.title;
   $divForContent.appendChild($h3);
+  const $p = document.createElement('p');
   $p.textContent = entry.notes;
   $divForContent.appendChild($p);
   return $li;
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $journalEntries?.appendChild($entry);
   }
   toggleNoEntries();
-  viewSwap('entry-form');
+  viewSwap(data.view);
 });
 function toggleNoEntries() {
   if (data.entries.length === 0) {
@@ -79,12 +79,10 @@ function viewSwap(viewToShow) {
   }
 }
 const $viewEntriesLink = document.querySelector('#entries-link');
-$viewEntriesLink?.addEventListener('click', (event) => {
-  event.preventDefault();
+$viewEntriesLink?.addEventListener('click', () => {
   viewSwap('entries');
 });
 const $viewNewEntries = document.querySelector('#entries-button');
-$viewNewEntries?.addEventListener('click', (event) => {
-  event.preventDefault();
+$viewNewEntries?.addEventListener('click', () => {
   viewSwap('entry-form');
 });
