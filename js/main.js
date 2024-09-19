@@ -20,7 +20,69 @@ $form.addEventListener('submit', (event) => {
   };
   data.nextEntryId++;
   data.entries.unshift(formData);
+  const newElements = renderEntry(formData);
+  $journalEntries?.prepend(newElements);
+  viewSwap('entries');
+  toggleNoEntries();
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
   serializeDataModel();
+});
+// view entries
+function renderEntry(entry) {
+  const $li = document.createElement('li');
+  $li.setAttribute('class', 'row journal-entry');
+  const $divForImage = document.createElement('div');
+  $divForImage.setAttribute('class', 'column-half');
+  $li.appendChild($divForImage);
+  const $img1 = document.createElement('img');
+  $img1.setAttribute('src', `${entry.imageUrl}`);
+  $img1.setAttribute('alt', `${entry.title}`);
+  $divForImage.appendChild($img1);
+  const $divForContent = document.createElement('div');
+  $divForContent.setAttribute('class', 'column-half');
+  $li.appendChild($divForContent);
+  const $h3 = document.createElement('h3');
+  $h3.textContent = entry.title;
+  $divForContent.appendChild($h3);
+  const $p = document.createElement('p');
+  $p.textContent = entry.notes;
+  $divForContent.appendChild($p);
+  return $li;
+}
+const $journalEntries = document.querySelector('#journal-entries');
+const $tp = document.querySelector('#toggle-p');
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const $entry = renderEntry(data.entries[i]);
+    $journalEntries?.appendChild($entry);
+  }
+  toggleNoEntries();
+  viewSwap(data.view);
+});
+function toggleNoEntries() {
+  if (data.entries.length === 0) {
+    $tp?.classList.remove('hidden');
+  } else {
+    $tp?.setAttribute('class', 'hidden');
+  }
+}
+const $viewEntries = document.querySelector('div[data-view= "entry-form"]');
+const $entries = document.querySelector('div[data-view="entries" ]');
+function viewSwap(viewToShow) {
+  if (viewToShow === 'entry-form') {
+    $viewEntries?.classList.remove('hidden');
+    $entries?.classList.add('hidden');
+  } else {
+    $entries?.classList.remove('hidden');
+    $viewEntries?.classList.add('hidden');
+  }
+}
+const $viewEntriesLink = document.querySelector('#entries-link');
+$viewEntriesLink?.addEventListener('click', () => {
+  viewSwap('entries');
+});
+const $viewNewEntries = document.querySelector('#entries-button');
+$viewNewEntries?.addEventListener('click', () => {
+  viewSwap('entry-form');
 });

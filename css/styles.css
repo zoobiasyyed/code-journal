@@ -18,9 +18,8 @@ header {
   width: 100%;
 }
 
-#ph-image {
-  height: 400px;
-  width: 400px;
+.image {
+  width: 100%;
 }
 
 .image-ph {
@@ -57,4 +56,38 @@ input {
   color: white;
   background-color: #4c2474;
   border: none;
+}
+
+.links {
+  color: white;
+  padding-left: 10px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.entries-style {
+  display: flex;
+  align-items: center;
+}
+
+.new-entries {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-button {
+  background-color: #4c2474;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: small;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+#entries-button {
+  font-size: medium;
+  color: white;
 }
