@@ -42,30 +42,30 @@ $form.addEventListener('submit', (event: Event) => {
   serializeDataModel();
 });
 
+const $li = document.createElement('li');
+const $divForImage = document.createElement('div');
+const $img1 = document.createElement('img');
+const $divForContent = document.createElement('div');
+const $h3 = document.createElement('h3');
+const $p = document.createElement('p');
 // view entries
 
 function renderEntry(entry: Entry): HTMLLIElement {
-  const $li = document.createElement('li');
   $li.setAttribute('class', 'row journal-entry');
 
-  const $divForImage = document.createElement('div');
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
 
-  const $img = document.createElement('img');
-  $img.setAttribute('src', `${entry.imageUrl}`);
-  $img.setAttribute('alt', `${entry.title}`);
-  $divForImage.appendChild($img);
+  $img1.setAttribute('src', `${entry.imageUrl}`);
+  $img1.setAttribute('alt', `${entry.title}`);
+  $divForImage.appendChild($img1);
 
-  const $divForContent = document.createElement('div');
   $divForContent.setAttribute('class', 'column-half');
   $li.appendChild($divForContent);
 
-  const $h3 = document.createElement('h3');
   $h3.textContent = entry.title;
   $divForContent.appendChild($h3);
 
-  const $p = document.createElement('p');
   $p.textContent = entry.notes;
   $divForContent.appendChild($p);
 
@@ -75,14 +75,24 @@ function renderEntry(entry: Entry): HTMLLIElement {
 console.log(renderEntry);
 
 const $journalEntries = document.querySelector('#journal-entries');
+const $tp = document.querySelector('#toggle-p');
 
 document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {
     const $entry = renderEntry(data.entries[i]);
 
     $journalEntries?.appendChild($entry);
-    // if (data.entries.length === 0){
 
-    // }
+    toggleNoEntries();
   }
 });
+
+function toggleNoEntries(): void {
+  if (data.entries.length === 0) {
+    $tp?.classList.remove('hidden');
+    console.log($tp);
+  } else {
+    $tp?.setAttribute('class', 'hidden');
+    console.log('It is working');
+  }
+}
