@@ -19,8 +19,9 @@
     <header>
       <div class="container">
         <div class="row">
-          <div class="column-full">
+          <div class="column-full entries-style">
             <h1>Code Journal</h1>
+            <a href="#entries" id="entries-link">Entries</a>
           </div>
         </div>
       </div>
@@ -35,7 +36,7 @@
 
         <!-- Added form element here -->
         <form>
-          <div class="row">
+          <div class="row list-styling">
             <div class="column-half image-ph">
               <img
                 id="ph-image"
@@ -77,15 +78,13 @@
 
       <div data-view="entries">
         <div class="row header-new-entries">
-          <div class="column-half new-entries">
+          <div class="column-full new-entries">
             <h2>Entries</h2>
-          </div>
-          <div class="column-half new-button">
-            <button type="submit" id="new-button">NEW</button>
+            <a href="#entry-form" class="new-button" id="entries-button">NEW</a>
           </div>
         </div>
         <div class="row">
-          <p id="toggle-p">There is no entry</p>
+          <p id="toggle-p">There is no entry!</p>
           <ul id="journal-entries">
             <li class="row journal-entry">
               <div class="column-half">

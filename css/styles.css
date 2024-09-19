@@ -59,21 +59,6 @@ input {
   border: none;
 }
 
-.new-button {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-#new-button {
-  width: 60px;
-  height: 30px;
-  border-radius: 10px;
-  color: white;
-  background-color: #4c2474;
-  border: none;
-}
-
 #pikachu-image {
   width: 100%;
 }
@@ -84,4 +69,45 @@ input {
 
 #jirachi-image {
   width: 100%;
+}
+
+#entries-link {
+  color: white;
+  padding-left: 10px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+#entries {
+  color: white;
+  padding-left: 10px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.entries-style {
+  display: flex;
+  align-items: center;
+}
+
+.new-entries {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-button {
+  background-color: #4c2474;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: small;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+#entries-button {
+  font-size: medium;
+  color: white;
 }

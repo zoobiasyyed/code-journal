@@ -90,9 +90,28 @@ document.addEventListener('DOMContentLoaded', () => {
 function toggleNoEntries(): void {
   if (data.entries.length === 0) {
     $tp?.classList.remove('hidden');
-    console.log($tp);
   } else {
     $tp?.setAttribute('class', 'hidden');
-    console.log('It is working');
   }
 }
+
+const $viewEntries = document.querySelector('div[data-view= "entry-form"]');
+const $entries = document.querySelector('div[data-view="entries" ]');
+
+function viewSwap(viewToShow: string): void {
+  if (viewToShow === 'entry-form') {
+    $viewEntries?.classList.remove('hidden');
+    $entries?.classList.add('hidden');
+  } else {
+    $entries?.classList.remove('hidden');
+    $viewEntries?.classList.add('hidden');
+  }
+}
+
+const $viewEntriesLink = document.querySelector('#entries-link');
+
+$viewEntriesLink?.addEventListener('click', (event: Event) => {
+  event.preventDefault();
+
+  viewSwap('entries');
+});

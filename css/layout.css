@@ -11,15 +11,13 @@
 .row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 20px;
 }
 
 .column-full,
 .column-half {
   width: 100%;
-}
-
-#journal-entries {
-  padding-right: 40px;
 }
 
 @media screen and (width >= 768px) {

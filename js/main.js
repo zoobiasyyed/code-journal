@@ -59,9 +59,23 @@ document.addEventListener('DOMContentLoaded', () => {
 function toggleNoEntries() {
   if (data.entries.length === 0) {
     $tp?.classList.remove('hidden');
-    console.log($tp);
   } else {
     $tp?.setAttribute('class', 'hidden');
-    console.log('It is working');
   }
 }
+const $viewEntries = document.querySelector('div[data-view= "entry-form"]');
+const $entries = document.querySelector('div[data-view="entries" ]');
+function viewSwap(viewToShow) {
+  if (viewToShow === 'entry-form') {
+    $viewEntries?.classList.remove('hidden');
+    $entries?.classList.add('hidden');
+  } else {
+    $entries?.classList.remove('hidden');
+    $viewEntries?.classList.add('hidden');
+  }
+}
+const $viewEntriesLink = document.querySelector('#entries-link');
+$viewEntriesLink?.addEventListener('click', (event) => {
+  event.preventDefault();
+  viewSwap('entries');
+});
