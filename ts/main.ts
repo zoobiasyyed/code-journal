@@ -75,6 +75,10 @@ function renderEntry(entry: Entry): HTMLLIElement {
   $p.textContent = entry.notes;
   $divForContent.appendChild($p);
 
+  const $i = document.createElement('i');
+  $i.setAttribute('class', 'fa-solid fa-pencil');
+  $h3.appendChild($i);
+
   return $li;
 }
 

@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+h3 {
+  display: flex;
+  justify-content: space-between;
+}
+
 .container {
   max-width: 575px;
   margin: 0 auto;
@@ -35,10 +40,6 @@
 
   .column-half {
     width: 50%;
-  }
-
-  .row {
-    display: flex;
   }
 
   h3 {
