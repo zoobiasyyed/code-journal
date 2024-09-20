@@ -226,6 +226,5 @@ $dismissModal?.addEventListener('click', () => {
   if ($liToRemove) {
     $liToRemove.remove();
   }
-  console.log($liToRemove);
   toggleNoEntries();
 });
