@@ -22,6 +22,7 @@ if (!$form) throw new Error('The $form query failed');
 
 $form.addEventListener('submit', (event: Event) => {
   event.preventDefault();
+
   const $formElements = $form.elements as FormElements;
 
   const formData = {
@@ -52,7 +53,8 @@ $form.addEventListener('submit', (event: Event) => {
             $newLi[y].getAttribute('data-entry-id') ===
             data.editing.entryID.toString()
           ) {
-            $newLi[y] = renderEntry(data.entries[i]);
+            const newEntryElement = renderEntry(formData);
+            $newLi[y].replaceWith(newEntryElement);
           }
         }
       }

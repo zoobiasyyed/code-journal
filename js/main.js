@@ -38,7 +38,8 @@ $form.addEventListener('submit', (event) => {
             $newLi[y].getAttribute('data-entry-id') ===
             data.editing.entryID.toString()
           ) {
-            $newLi[y] = renderEntry(data.entries[i]);
+            const newEntryElement = renderEntry(formData);
+            $newLi[y].replaceWith(newEntryElement);
           }
         }
       }
