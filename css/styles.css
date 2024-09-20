@@ -74,6 +74,12 @@ ul {
   justify-content: space-between;
 }
 
+.delete-entry {
+  border: none;
+  text-decoration: underline;
+  color: red;
+}
+
 .new-button {
   background-color: #4c2474;
   padding-left: 12px;

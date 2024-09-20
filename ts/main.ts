@@ -67,6 +67,7 @@ $form.addEventListener('submit', (event: Event) => {
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $form.reset();
+  $deleteEntryButton?.classList.add('hidden');
   viewSwap('entries');
   serializeDataModel();
 });
@@ -152,6 +153,9 @@ $viewNewEntries?.addEventListener('click', () => {
   viewSwap('entry-form');
 });
 
+// delete button
+const $deleteEntryButton = document.querySelector('#delete-entry-button');
+$deleteEntryButton?.classList.add('hidden');
 const $ul = document.querySelector('ul');
 
 // querying for elements
@@ -186,10 +190,30 @@ $ul?.addEventListener('click', (event: Event) => {
       $prePopulatePhotoUrl.value = data.editing.imageUrl;
       $photoPreview.setAttribute('src', data.editing.imageUrl);
       $editEntry.textContent = 'Edit Entry';
+      $deleteEntryButton?.classList.remove('hidden');
     }
   } else {
     return;
   }
 
   viewSwap('entry-form');
+});
+
+if (!$deleteEntryButton) throw new Error('$deleteEntryButton not in query ');
+const $dontDismissModal = document.querySelector('.dont-dismiss-modal');
+const $dismissModal = document.querySelector('.dismiss-modal');
+const $dialog = document.querySelector('dialog') as HTMLDialogElement;
+
+$deleteEntryButton.addEventListener('click', () => {
+  $dialog?.showModal();
+});
+
+$dontDismissModal?.addEventListener('click', () => {
+  $dialog?.close();
+});
+
+$dismissModal?.addEventListener('click', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i] === data.editing) data.entries.splice(i, 1);
+  }
 });
