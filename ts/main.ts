@@ -22,6 +22,7 @@ if (!$form) throw new Error('The $form query failed');
 
 $form.addEventListener('submit', (event: Event) => {
   event.preventDefault();
+
   const $formElements = $form.elements as FormElements;
 
   const formData = {
@@ -31,20 +32,42 @@ $form.addEventListener('submit', (event: Event) => {
     notes: $formElements['notes-textbox'].value,
   };
 
-  data.nextEntryId++;
+  if (data.editing === null) {
+    formData.entryID = data.nextEntryId;
+    data.nextEntryId++;
 
-  data.entries.unshift(formData);
+    data.entries.unshift(formData);
+    const newElements = renderEntry(formData);
+    $journalEntries?.prepend(newElements);
+    toggleNoEntries();
+  } else {
+    formData.entryID = data.editing.entryID;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryID === data.editing.entryID) {
+        data.entries[i] = formData;
+        // rendering new DOM tree
+      }
+    }
+    const $newLi = document.querySelectorAll('li');
+    for (let y = 0; y < $newLi.length; y++) {
+      if (
+        $newLi[y].getAttribute('data-entry-id') ===
+        data.editing.entryID.toString()
+      ) {
+        const newEntryElement = renderEntry(formData);
+        $newLi[y].replaceWith(newEntryElement);
+      }
+    }
+  }
 
-  const newElements = renderEntry(formData);
-  $journalEntries?.prepend(newElements);
+  $editEntry.textContent = 'New Entry';
 
-  viewSwap('entries');
-  toggleNoEntries();
+  data.editing = null;
 
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $form.reset();
-
+  viewSwap('entries');
   serializeDataModel();
 });
 
@@ -53,12 +76,14 @@ $form.addEventListener('submit', (event: Event) => {
 function renderEntry(entry: Entry): HTMLLIElement {
   const $li = document.createElement('li');
   $li.setAttribute('class', 'row journal-entry');
+  $li.setAttribute('data-entry-id', entry.entryID.toString());
 
   const $divForImage = document.createElement('div');
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
 
   const $img1 = document.createElement('img');
+  $img1.setAttribute('class', 'image');
   $img1.setAttribute('src', `${entry.imageUrl}`);
   $img1.setAttribute('alt', `${entry.title}`);
   $divForImage.appendChild($img1);
@@ -74,6 +99,10 @@ function renderEntry(entry: Entry): HTMLLIElement {
   const $p = document.createElement('p');
   $p.textContent = entry.notes;
   $divForContent.appendChild($p);
+
+  const $i = document.createElement('i');
+  $i.setAttribute('class', 'fa-solid fa-pencil');
+  $h3.appendChild($i);
 
   return $li;
 }
@@ -102,7 +131,7 @@ function toggleNoEntries(): void {
 const $viewEntries = document.querySelector('div[data-view= "entry-form"]');
 const $entries = document.querySelector('div[data-view="entries" ]');
 
-function viewSwap(viewToShow: string): void {
+function viewSwap(viewToShow: 'entries' | 'entry-form'): void {
   if (viewToShow === 'entry-form') {
     $viewEntries?.classList.remove('hidden');
     $entries?.classList.add('hidden');
@@ -110,6 +139,8 @@ function viewSwap(viewToShow: string): void {
     $entries?.classList.remove('hidden');
     $viewEntries?.classList.add('hidden');
   }
+  data.view = viewToShow;
+  serializeDataModel();
 }
 
 const $viewEntriesLink = document.querySelector('#entries-link');
@@ -118,5 +149,47 @@ $viewEntriesLink?.addEventListener('click', () => {
 });
 const $viewNewEntries = document.querySelector('#entries-button');
 $viewNewEntries?.addEventListener('click', () => {
+  viewSwap('entry-form');
+});
+
+const $ul = document.querySelector('ul');
+
+// querying for elements
+const $prePopulateTitle = document.querySelector(
+  '#title-textbox',
+) as HTMLInputElement;
+const $prePopulatePhotoUrl = document.querySelector(
+  '#photo-textbox',
+) as HTMLInputElement;
+const $prePopulateNotes = document.querySelector(
+  '#notes-textbox',
+) as HTMLInputElement;
+
+const $editEntry = document.querySelector('h2') as HTMLHeadElement;
+
+$ul?.addEventListener('click', (event: Event) => {
+  const eventTarget = event.target as HTMLElement;
+  const $closestli = eventTarget.closest('li');
+
+  if (eventTarget.getAttribute('class') === 'fa-solid fa-pencil') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (
+        data.entries[i].entryID.toString() ===
+        $closestli?.getAttribute('data-entry-id')
+      ) {
+        data.editing = data.entries[i];
+      }
+    }
+    if (data.editing) {
+      $prePopulateTitle.value = data.editing.title;
+      $prePopulateNotes.value = data.editing.notes;
+      $prePopulatePhotoUrl.value = data.editing.imageUrl;
+      $photoPreview.setAttribute('src', data.editing.imageUrl);
+      $editEntry.textContent = 'Edit Entry';
+    }
+  } else {
+    return;
+  }
+
   viewSwap('entry-form');
 });

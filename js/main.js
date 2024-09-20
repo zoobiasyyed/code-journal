@@ -18,24 +18,49 @@ $form.addEventListener('submit', (event) => {
     title: $formElements['title-textbox'].value,
     notes: $formElements['notes-textbox'].value,
   };
-  data.nextEntryId++;
-  data.entries.unshift(formData);
-  const newElements = renderEntry(formData);
-  $journalEntries?.prepend(newElements);
-  viewSwap('entries');
-  toggleNoEntries();
+  if (data.editing === null) {
+    formData.entryID = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(formData);
+    const newElements = renderEntry(formData);
+    $journalEntries?.prepend(newElements);
+    toggleNoEntries();
+  } else {
+    formData.entryID = data.editing.entryID;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryID === data.editing.entryID) {
+        data.entries[i] = formData;
+        // rendering new DOM tree
+      }
+    }
+    const $newLi = document.querySelectorAll('li');
+    for (let y = 0; y < $newLi.length; y++) {
+      if (
+        $newLi[y].getAttribute('data-entry-id') ===
+        data.editing.entryID.toString()
+      ) {
+        const newEntryElement = renderEntry(formData);
+        $newLi[y].replaceWith(newEntryElement);
+      }
+    }
+  }
+  $editEntry.textContent = 'New Entry';
+  data.editing = null;
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
+  viewSwap('entries');
   serializeDataModel();
 });
 // view entries
 function renderEntry(entry) {
   const $li = document.createElement('li');
   $li.setAttribute('class', 'row journal-entry');
+  $li.setAttribute('data-entry-id', entry.entryID.toString());
   const $divForImage = document.createElement('div');
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
   const $img1 = document.createElement('img');
+  $img1.setAttribute('class', 'image');
   $img1.setAttribute('src', `${entry.imageUrl}`);
   $img1.setAttribute('alt', `${entry.title}`);
   $divForImage.appendChild($img1);
@@ -48,6 +73,9 @@ function renderEntry(entry) {
   const $p = document.createElement('p');
   $p.textContent = entry.notes;
   $divForContent.appendChild($p);
+  const $i = document.createElement('i');
+  $i.setAttribute('class', 'fa-solid fa-pencil');
+  $h3.appendChild($i);
   return $li;
 }
 const $journalEntries = document.querySelector('#journal-entries');
@@ -77,6 +105,8 @@ function viewSwap(viewToShow) {
     $entries?.classList.remove('hidden');
     $viewEntries?.classList.add('hidden');
   }
+  data.view = viewToShow;
+  serializeDataModel();
 }
 const $viewEntriesLink = document.querySelector('#entries-link');
 $viewEntriesLink?.addEventListener('click', () => {
@@ -84,5 +114,35 @@ $viewEntriesLink?.addEventListener('click', () => {
 });
 const $viewNewEntries = document.querySelector('#entries-button');
 $viewNewEntries?.addEventListener('click', () => {
+  viewSwap('entry-form');
+});
+const $ul = document.querySelector('ul');
+// querying for elements
+const $prePopulateTitle = document.querySelector('#title-textbox');
+const $prePopulatePhotoUrl = document.querySelector('#photo-textbox');
+const $prePopulateNotes = document.querySelector('#notes-textbox');
+const $editEntry = document.querySelector('h2');
+$ul?.addEventListener('click', (event) => {
+  const eventTarget = event.target;
+  const $closestli = eventTarget.closest('li');
+  if (eventTarget.getAttribute('class') === 'fa-solid fa-pencil') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (
+        data.entries[i].entryID.toString() ===
+        $closestli?.getAttribute('data-entry-id')
+      ) {
+        data.editing = data.entries[i];
+      }
+    }
+    if (data.editing) {
+      $prePopulateTitle.value = data.editing.title;
+      $prePopulateNotes.value = data.editing.notes;
+      $prePopulatePhotoUrl.value = data.editing.imageUrl;
+      $photoPreview.setAttribute('src', data.editing.imageUrl);
+      $editEntry.textContent = 'Edit Entry';
+    }
+  } else {
+    return;
+  }
   viewSwap('entry-form');
 });
