@@ -184,6 +184,7 @@ $ul?.addEventListener('click', (event: Event) => {
       $prePopulateTitle.value = data.editing.title;
       $prePopulateNotes.value = data.editing.notes;
       $prePopulatePhotoUrl.value = data.editing.imageUrl;
+      $photoPreview.setAttribute('src', data.editing.imageUrl);
       $editEntry.textContent = 'Edit Entry';
     }
   } else {
