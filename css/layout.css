@@ -14,13 +14,10 @@ h3 {
 }
 
 .row {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.header-new-entries {
-  padding-right: 40px;
 }
 
 .column-full,
@@ -42,19 +39,7 @@ h3 {
     width: 50%;
   }
 
-  h3 {
-    padding-left: 100px;
-  }
-
-  p {
-    padding-left: 100px;
-  }
-
   .mini-titles {
     padding-left: 0;
-  }
-
-  img {
-    padding-right: 200px;
   }
 }

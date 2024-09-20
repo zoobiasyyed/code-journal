@@ -19,7 +19,6 @@ $form.addEventListener('submit', (event) => {
     notes: $formElements['notes-textbox'].value,
   };
   if (data.editing === null) {
-    event.preventDefault();
     formData.entryID = data.nextEntryId;
     data.nextEntryId++;
     data.entries.unshift(formData);
@@ -32,16 +31,16 @@ $form.addEventListener('submit', (event) => {
       if (data.entries[i].entryID === data.editing.entryID) {
         data.entries[i] = formData;
         // rendering new DOM tree
-        const $newLi = document.querySelectorAll('li');
-        for (let y = 0; y < $newLi.length; y++) {
-          if (
-            $newLi[y].getAttribute('data-entry-id') ===
-            data.editing.entryID.toString()
-          ) {
-            const newEntryElement = renderEntry(formData);
-            $newLi[y].replaceWith(newEntryElement);
-          }
-        }
+      }
+    }
+    const $newLi = document.querySelectorAll('li');
+    for (let y = 0; y < $newLi.length; y++) {
+      if (
+        $newLi[y].getAttribute('data-entry-id') ===
+        data.editing.entryID.toString()
+      ) {
+        const newEntryElement = renderEntry(formData);
+        $newLi[y].replaceWith(newEntryElement);
       }
     }
   }
@@ -61,6 +60,7 @@ function renderEntry(entry) {
   $divForImage.setAttribute('class', 'column-half');
   $li.appendChild($divForImage);
   const $img1 = document.createElement('img');
+  $img1.setAttribute('class', 'image');
   $img1.setAttribute('src', `${entry.imageUrl}`);
   $img1.setAttribute('alt', `${entry.title}`);
   $divForImage.appendChild($img1);
@@ -105,6 +105,8 @@ function viewSwap(viewToShow) {
     $entries?.classList.remove('hidden');
     $viewEntries?.classList.add('hidden');
   }
+  data.view = viewToShow;
+  serializeDataModel();
 }
 const $viewEntriesLink = document.querySelector('#entries-link');
 $viewEntriesLink?.addEventListener('click', () => {
@@ -114,7 +116,6 @@ const $viewNewEntries = document.querySelector('#entries-button');
 $viewNewEntries?.addEventListener('click', () => {
   viewSwap('entry-form');
 });
-// const $clickPencil = document.querySelector('.fa-solid .fa-pencil');
 const $ul = document.querySelector('ul');
 // querying for elements
 const $prePopulateTitle = document.querySelector('#title-textbox');
@@ -123,7 +124,6 @@ const $prePopulateNotes = document.querySelector('#notes-textbox');
 const $editEntry = document.querySelector('h2');
 $ul?.addEventListener('click', (event) => {
   const eventTarget = event.target;
-  console.log('eventTarget: ', eventTarget.tagName);
   const $closestli = eventTarget.closest('li');
   if (eventTarget.getAttribute('class') === 'fa-solid fa-pencil') {
     for (let i = 0; i < data.entries.length; i++) {

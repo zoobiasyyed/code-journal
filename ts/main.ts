@@ -33,7 +33,6 @@ $form.addEventListener('submit', (event: Event) => {
   };
 
   if (data.editing === null) {
-    event.preventDefault();
     formData.entryID = data.nextEntryId;
     data.nextEntryId++;
 
@@ -47,16 +46,16 @@ $form.addEventListener('submit', (event: Event) => {
       if (data.entries[i].entryID === data.editing.entryID) {
         data.entries[i] = formData;
         // rendering new DOM tree
-        const $newLi = document.querySelectorAll('li');
-        for (let y = 0; y < $newLi.length; y++) {
-          if (
-            $newLi[y].getAttribute('data-entry-id') ===
-            data.editing.entryID.toString()
-          ) {
-            const newEntryElement = renderEntry(formData);
-            $newLi[y].replaceWith(newEntryElement);
-          }
-        }
+      }
+    }
+    const $newLi = document.querySelectorAll('li');
+    for (let y = 0; y < $newLi.length; y++) {
+      if (
+        $newLi[y].getAttribute('data-entry-id') ===
+        data.editing.entryID.toString()
+      ) {
+        const newEntryElement = renderEntry(formData);
+        $newLi[y].replaceWith(newEntryElement);
       }
     }
   }
@@ -84,6 +83,7 @@ function renderEntry(entry: Entry): HTMLLIElement {
   $li.appendChild($divForImage);
 
   const $img1 = document.createElement('img');
+  $img1.setAttribute('class', 'image');
   $img1.setAttribute('src', `${entry.imageUrl}`);
   $img1.setAttribute('alt', `${entry.title}`);
   $divForImage.appendChild($img1);
@@ -131,7 +131,7 @@ function toggleNoEntries(): void {
 const $viewEntries = document.querySelector('div[data-view= "entry-form"]');
 const $entries = document.querySelector('div[data-view="entries" ]');
 
-function viewSwap(viewToShow: string): void {
+function viewSwap(viewToShow: 'entries' | 'entry-form'): void {
   if (viewToShow === 'entry-form') {
     $viewEntries?.classList.remove('hidden');
     $entries?.classList.add('hidden');
@@ -139,6 +139,8 @@ function viewSwap(viewToShow: string): void {
     $entries?.classList.remove('hidden');
     $viewEntries?.classList.add('hidden');
   }
+  data.view = viewToShow;
+  serializeDataModel();
 }
 
 const $viewEntriesLink = document.querySelector('#entries-link');
@@ -150,7 +152,6 @@ $viewNewEntries?.addEventListener('click', () => {
   viewSwap('entry-form');
 });
 
-// const $clickPencil = document.querySelector('.fa-solid .fa-pencil');
 const $ul = document.querySelector('ul');
 
 // querying for elements
@@ -168,7 +169,6 @@ const $editEntry = document.querySelector('h2') as HTMLHeadElement;
 
 $ul?.addEventListener('click', (event: Event) => {
   const eventTarget = event.target as HTMLElement;
-  console.log('eventTarget: ', eventTarget.tagName);
   const $closestli = eventTarget.closest('li');
 
   if (eventTarget.getAttribute('class') === 'fa-solid fa-pencil') {
