@@ -39,7 +39,7 @@ input {
 
 .button {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-bottom: 30px;
 }
 
@@ -72,6 +72,16 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.delete-entry {
+  border: none;
+  text-decoration: underline;
+  color: red;
+}
+
+.hide {
+  visibility: hidden !important;
 }
 
 .new-button {
