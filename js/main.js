@@ -18,14 +18,37 @@ $form.addEventListener('submit', (event) => {
     title: $formElements['title-textbox'].value,
     notes: $formElements['notes-textbox'].value,
   };
-  data.nextEntryId++;
-  data.entries.unshift(formData);
-  const newElements = renderEntry(formData);
-  $journalEntries?.prepend(newElements);
-  viewSwap('entries');
-  toggleNoEntries();
+  if (data.editing === null) {
+    event.preventDefault();
+    formData.entryID = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(formData);
+    const newElements = renderEntry(formData);
+    $journalEntries?.prepend(newElements);
+    toggleNoEntries();
+  } else {
+    formData.entryID = data.editing.entryID;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryID === data.editing.entryID) {
+        data.entries[i] = formData;
+        // rendering new DOM tree
+        const $newLi = document.querySelectorAll('li');
+        for (let y = 0; y < $newLi.length; y++) {
+          if (
+            $newLi[y].getAttribute('data-entry-id') ===
+            data.editing.entryID.toString()
+          ) {
+            $newLi[y] = renderEntry(data.entries[i]);
+          }
+        }
+      }
+    }
+  }
+  $editEntry.textContent = 'New Entry';
+  data.editing = null;
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
+  viewSwap('entries');
   serializeDataModel();
 });
 // view entries
@@ -90,20 +113,34 @@ const $viewNewEntries = document.querySelector('#entries-button');
 $viewNewEntries?.addEventListener('click', () => {
   viewSwap('entry-form');
 });
-const $clickPencil = document.querySelector('.fa-solid .fa-pencil');
+// const $clickPencil = document.querySelector('.fa-solid .fa-pencil');
 const $ul = document.querySelector('ul');
+// querying for elements
+const $prePopulateTitle = document.querySelector('#title-textbox');
+const $prePopulatePhotoUrl = document.querySelector('#photo-textbox');
+const $prePopulateNotes = document.querySelector('#notes-textbox');
+const $editEntry = document.querySelector('h2');
 $ul?.addEventListener('click', (event) => {
-  viewSwap('entries');
   const eventTarget = event.target;
   console.log('eventTarget: ', eventTarget.tagName);
   const $closestli = eventTarget.closest('li');
-  console.log($closestli);
-  for (let i = 0; i < data.entries.length; i++) {
-    if (
-      data.entries[i].entryID.toString() ===
-      $closestli?.getAttribute('data-entry-id')
-    ) {
-      data.editing = data.entries[i];
+  if (eventTarget.getAttribute('class') === 'fa-solid fa-pencil') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (
+        data.entries[i].entryID.toString() ===
+        $closestli?.getAttribute('data-entry-id')
+      ) {
+        data.editing = data.entries[i];
+      }
     }
+    if (data.editing) {
+      $prePopulateTitle.value = data.editing.title;
+      $prePopulateNotes.value = data.editing.notes;
+      $prePopulatePhotoUrl.value = data.editing.imageUrl;
+      $editEntry.textContent = 'Edit Entry';
+    }
+  } else {
+    return;
   }
+  viewSwap('entry-form');
 });

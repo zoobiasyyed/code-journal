@@ -31,20 +31,42 @@ $form.addEventListener('submit', (event: Event) => {
     notes: $formElements['notes-textbox'].value,
   };
 
-  data.nextEntryId++;
+  if (data.editing === null) {
+    event.preventDefault();
+    formData.entryID = data.nextEntryId;
+    data.nextEntryId++;
 
-  data.entries.unshift(formData);
+    data.entries.unshift(formData);
+    const newElements = renderEntry(formData);
+    $journalEntries?.prepend(newElements);
+    toggleNoEntries();
+  } else {
+    formData.entryID = data.editing.entryID;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryID === data.editing.entryID) {
+        data.entries[i] = formData;
+        // rendering new DOM tree
+        const $newLi = document.querySelectorAll('li');
+        for (let y = 0; y < $newLi.length; y++) {
+          if (
+            $newLi[y].getAttribute('data-entry-id') ===
+            data.editing.entryID.toString()
+          ) {
+            $newLi[y] = renderEntry(data.entries[i]);
+          }
+        }
+      }
+    }
+  }
 
-  const newElements = renderEntry(formData);
-  $journalEntries?.prepend(newElements);
+  $editEntry.textContent = 'New Entry';
 
-  viewSwap('entries');
-  toggleNoEntries();
+  data.editing = null;
 
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $form.reset();
-
+  viewSwap('entries');
   serializeDataModel();
 });
 
@@ -129,20 +151,42 @@ $viewNewEntries?.addEventListener('click', () => {
 // const $clickPencil = document.querySelector('.fa-solid .fa-pencil');
 const $ul = document.querySelector('ul');
 
-$ul?.addEventListener('click', (event: Event) => {
-  viewSwap('entries');
+// querying for elements
+const $prePopulateTitle = document.querySelector(
+  '#title-textbox',
+) as HTMLInputElement;
+const $prePopulatePhotoUrl = document.querySelector(
+  '#photo-textbox',
+) as HTMLInputElement;
+const $prePopulateNotes = document.querySelector(
+  '#notes-textbox',
+) as HTMLInputElement;
 
+const $editEntry = document.querySelector('h2') as HTMLHeadElement;
+
+$ul?.addEventListener('click', (event: Event) => {
   const eventTarget = event.target as HTMLElement;
   console.log('eventTarget: ', eventTarget.tagName);
   const $closestli = eventTarget.closest('li');
-  console.log($closestli);
 
-  for (let i = 0; i < data.entries.length; i++) {
-    if (
-      data.entries[i].entryID.toString() ===
-      $closestli?.getAttribute('data-entry-id')
-    ) {
-      data.editing = data.entries[i];
+  if (eventTarget.getAttribute('class') === 'fa-solid fa-pencil') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (
+        data.entries[i].entryID.toString() ===
+        $closestli?.getAttribute('data-entry-id')
+      ) {
+        data.editing = data.entries[i];
+      }
     }
+    if (data.editing) {
+      $prePopulateTitle.value = data.editing.title;
+      $prePopulateNotes.value = data.editing.notes;
+      $prePopulatePhotoUrl.value = data.editing.imageUrl;
+      $editEntry.textContent = 'Edit Entry';
+    }
+  } else {
+    return;
   }
+
+  viewSwap('entry-form');
 });
