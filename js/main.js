@@ -48,7 +48,7 @@ $form.addEventListener('submit', (event) => {
   data.editing = null;
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
-  $deleteEntryButton?.classList.add('hidden');
+  $deleteEntryButton?.classList.add('hide');
   viewSwap('entries');
   serializeDataModel();
 });
@@ -115,11 +115,13 @@ $viewEntriesLink?.addEventListener('click', () => {
 });
 const $viewNewEntries = document.querySelector('#entries-button');
 $viewNewEntries?.addEventListener('click', () => {
+  $form.reset();
+  $deleteEntryButton?.classList.add('hide');
+  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   viewSwap('entry-form');
 });
 // delete button
 const $deleteEntryButton = document.querySelector('#delete-entry-button');
-$deleteEntryButton?.classList.add('hidden');
 const $ul = document.querySelector('ul');
 // querying for elements
 const $prePopulateTitle = document.querySelector('#title-textbox');
@@ -144,7 +146,7 @@ $ul?.addEventListener('click', (event) => {
       $prePopulatePhotoUrl.value = data.editing.imageUrl;
       $photoPreview.setAttribute('src', data.editing.imageUrl);
       $editEntry.textContent = 'Edit Entry';
-      $deleteEntryButton?.classList.remove('hidden');
+      $deleteEntryButton?.classList.remove('hide');
     }
   } else {
     return;
@@ -163,6 +165,16 @@ $dontDismissModal?.addEventListener('click', () => {
 });
 $dismissModal?.addEventListener('click', () => {
   for (let i = 0; i < data.entries.length; i++) {
-    if (data.entries[i] === data.editing) data.entries.splice(i, 1);
+    if (data.entries[i] === data.editing) {
+      data.entries.splice(i, 1);
+    }
   }
+  const $liToRemove = document.querySelector(
+    `li[data-entry-id='${data?.editing?.entryID}']`,
+  );
+  if ($liToRemove) {
+    $liToRemove.remove();
+  }
+  console.log($liToRemove);
+  toggleNoEntries();
 });
